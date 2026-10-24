@@ -4,11 +4,20 @@ cli.py - Command Line Interface für DACH Sachbezug- & Benefit-Optimierer 2026
 
 import argparse
 import sys
+import os
 import json
-from .svev_de import GermanyBenefitsCalculator
-from .austria import AustriaBenefitsCalculator
-from .switzerland import SwitzerlandBenefitsCalculator
-from .salary_comparison import SalaryRaiseOptimizer
+
+if __package__ is None or __package__ == "":
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from sachbezug_dach.svev_de import GermanyBenefitsCalculator
+    from sachbezug_dach.austria import AustriaBenefitsCalculator
+    from sachbezug_dach.switzerland import SwitzerlandBenefitsCalculator
+    from sachbezug_dach.salary_comparison import SalaryRaiseOptimizer
+else:
+    from .svev_de import GermanyBenefitsCalculator
+    from .austria import AustriaBenefitsCalculator
+    from .switzerland import SwitzerlandBenefitsCalculator
+    from .salary_comparison import SalaryRaiseOptimizer
 
 def main():
     parser = argparse.ArgumentParser(
